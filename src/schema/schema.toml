@@ -1,0 +1,141 @@
+version = 1
+
+[tables.cart_product]
+pk = [
+    "cart_id",
+    "product_id",
+]
+indexes = []
+
+[[tables.cart_product.columns]]
+name = "cart_id"
+type = "integer"
+nullable = false
+
+[tables.cart_product.columns.references]
+table = "cart"
+column = "id"
+on_delete = "NO ACTION"
+on_update = "NO ACTION"
+
+[[tables.cart_product.columns]]
+name = "product_id"
+type = "integer"
+nullable = false
+
+[tables.cart_product.columns.references]
+table = "product"
+column = "id"
+on_delete = "NO ACTION"
+on_update = "NO ACTION"
+
+[[tables.cart_product.columns]]
+name = "quantity"
+type = "integer"
+nullable = true
+default = "1"
+
+[tables.product]
+pk = ["id"]
+indexes = []
+
+[[tables.product.columns]]
+name = "id"
+type = "integer"
+nullable = false
+default = "nextval('product_id_seq'::regclass)"
+
+[[tables.product.columns]]
+name = "name"
+type = "text"
+nullable = false
+
+[[tables.product.columns]]
+name = "price"
+type = "numeric"
+nullable = false
+
+[[tables.product.columns]]
+name = "stock"
+type = "integer"
+nullable = false
+default = "0"
+
+[[tables.product.columns]]
+name = "created_at"
+type = "timestamp without time zone"
+nullable = false
+default = "now()"
+
+[tables.cart]
+pk = ["id"]
+indexes = []
+
+[[tables.cart.columns]]
+name = "id"
+type = "integer"
+nullable = false
+default = "nextval('cart_id_seq'::regclass)"
+
+[[tables.cart.columns]]
+name = "user_id"
+type = "integer"
+nullable = false
+
+[tables.cart.columns.references]
+table = "app_user"
+column = "id"
+on_delete = "NO ACTION"
+on_update = "NO ACTION"
+
+[[tables.cart.columns]]
+name = "created_at"
+type = "timestamp without time zone"
+nullable = true
+default = "CURRENT_TIMESTAMP"
+
+[tables.app_user]
+pk = ["id"]
+
+[[tables.app_user.columns]]
+name = "id"
+type = "integer"
+nullable = false
+default = "nextval('users_id_seq'::regclass)"
+
+[[tables.app_user.columns]]
+name = "username"
+type = "character varying"
+nullable = false
+
+[[tables.app_user.columns]]
+name = "email"
+type = "character varying"
+nullable = false
+
+[[tables.app_user.columns]]
+name = "password_hash"
+type = "character varying"
+nullable = false
+
+[[tables.app_user.columns]]
+name = "created_at"
+type = "timestamp without time zone"
+nullable = true
+default = "now()"
+
+[[tables.app_user.columns]]
+name = "updated_at"
+type = "timestamp without time zone"
+nullable = true
+default = "now()"
+
+[[tables.app_user.indexes]]
+name = "users_email_key"
+columns = ["email"]
+unique = true
+
+[[tables.app_user.indexes]]
+name = "users_username_key"
+columns = ["username"]
+unique = true
